@@ -1,6 +1,6 @@
 # GraphIQ — AI-Powered Relational Intelligence System
 
-> Transform unstructured documents into an intelligent, queryable knowledge graph powered by NLP and LLM reasoning.
+> Turn messy, unstructured documents into a knowledge graph you can actually talk to.
 
 ![GraphIQ](https://img.shields.io/badge/GraphIQ-v1.0-00f5d4?style=for-the-badge&logoColor=white)
 ![Python](https://img.shields.io/badge/Python-3.11-a78bfa?style=for-the-badge&logo=python&logoColor=white)
@@ -12,40 +12,71 @@
 
 ## What is GraphIQ?
 
-GraphIQ is an **AI-Powered Knowledge Graph Reasoning Engine** that ingests unstructured enterprise documents and transforms them into a structured, queryable knowledge graph. Users can ask natural language questions and receive intelligent, explainable multi-hop reasoning answers powered by large language models.
+Ever tried finding a specific piece of information buried across dozens of company documents? You ctrl+F through PDFs, grep through logs, and still come up empty.
 
-### The Problem
-Modern enterprises generate massive volumes of unstructured data — reports, contracts, emails, and logs. Extracting meaningful insights from these scattered sources is nearly impossible using traditional keyword search or isolated databases.
+GraphIQ was built to fix that.
 
-### The Solution
-GraphIQ automatically:
-- Extracts named entities (people, organizations, events, dates)
-- Detects relationships between those entities
-- Stores everything as a connected knowledge graph in Neo4j
-- Enables natural language querying with AI-powered reasoning
+Drop in your documents — PDFs, text files, reports, whatever — and GraphIQ reads through them, pulls out the important stuff (people, organizations, events, relationships), and builds a live knowledge graph from it all. Then you just ask questions. In plain English. And it actually answers them, with reasoning you can follow.
 
 ---
 
-## Live Demo
+## A quick look at what it does
 
 ```
-Ask: "Who detected the data breach and what happened next?"
+You ask: "Who detected the data breach and what happened next?"
 
-ANSWER: Priya Nair detected the data breach and reported it to Rahul Sharma.
-Rahul Sharma then hired SecureNet LLC to resolve it.
+GraphIQ says:
+  Priya Nair detected the data breach and reported it to Rahul Sharma.
+  Rahul Sharma then hired SecureNet LLC to resolve it.
 
-REASONING PATH:
-Priya Nair → [detected] → data breach
-Priya Nair → [reported_to] → Rahul Sharma
-Rahul Sharma → [hired] → SecureNet LLC
-SecureNet LLC → [fixed] → data breach
+Here's how it figured that out:
+  Priya Nair    → [detected]    → data breach
+  Priya Nair    → [reported_to] → Rahul Sharma
+  Rahul Sharma  → [hired]       → SecureNet LLC
+  SecureNet LLC → [fixed]       → data breach
 
-CONFIDENCE: High — all relationships directly stated in the knowledge graph.
+Confidence: High — all relationships are directly in the graph.
 ```
+
+It doesn't just give you an answer — it shows its work.
 
 ---
 
-## System Architecture
+## Screenshots
+
+### Graph View — watch the knowledge graph build itself, node by node
+
+![Graph View](graph.png)
+
+The graph animates in real time using a physics-based force simulation. Nodes push and pull against each other, edges form as relationships are discovered. You can drag nodes around, click to inspect them, control the animation speed, and pause at any point.
+
+---
+
+### Relations View — every extracted relationship in one place
+
+![Relations View](relations.png)
+
+A clean table showing all `FROM → RELATION → TO` triples pulled from your documents. Color-coded by entity type so you can spot people, organizations, dates, and locations at a glance.
+
+---
+
+### Entities View — everything the system found, organized by type
+
+![Entities View](entities.png)
+
+Cards for every extracted entity — people, organizations, locations, dates, financial values. Each card shows how many connections it has and what kinds of relationships it's part of.
+
+---
+
+### Ingest View — upload a document and watch the graph update
+
+![Ingest View](ingest.png)
+
+Drag and drop a PDF, TXT, CSV, or MD file. The system processes it, extracts entities and relationships, and reports back exactly what it found. The graph updates live on the other tab.
+
+---
+
+## How it's all wired together
 
 ```
 ┌─────────────────────────────────────────────────────────┐
@@ -55,9 +86,9 @@ CONFIDENCE: High — all relationships directly stated in the knowledge graph.
 └──────────────────────┬──────────────────────────────────┘
                        │ HTTP
 ┌──────────────────────▼──────────────────────────────────┐
-│                      API LAYER                          │
-│              FastAPI + Uvicorn + Pydantic               │
-│         /query  /graph  /ingest  /delete  /sources      │
+│                      API LAYER                           │
+│              FastAPI + Uvicorn + Pydantic                │
+│         /query  /graph  /ingest  /delete  /sources       │
 └──────────────────────┬──────────────────────────────────┘
                        │
 ┌──────────────────────▼──────────────────────────────────┐
@@ -76,83 +107,100 @@ CONFIDENCE: High — all relationships directly stated in the knowledge graph.
 
 ---
 
-## Features
+## Features at a glance
 
-- **Animated Knowledge Graph** — Nodes appear one by one in a physics-based force simulation, showing how the graph builds from your document
-- **AI Query Engine** — Ask questions in plain English, get multi-hop reasoning answers with confidence scores
-- **Real-time Document Ingestion** — Upload PDFs or text files and watch the graph update instantly
-- **Relations Table** — Browse all extracted relationships in a clean tabular view
-- **Entity Explorer** — View all extracted entities organized by type
-- **Document Manager** — Upload, view, and delete ingested documents
-- **NLP Pipeline** — Transformer-based Named Entity Recognition using spaCy
-- **Graph Embeddings** — Node2Vec-style semantic embeddings with FAISS vector search
-
----
-
-## Tech Stack
-
-| Layer | Technology | Purpose |
-|-------|-----------|---------|
-| Frontend | React 18 + Vite | Interactive UI |
-| Styling | JetBrains Mono + Orbitron | Futuristic dark theme |
-| Backend | FastAPI + Uvicorn | REST API |
-| NLP | spaCy en_core_web_trf | Named Entity Recognition |
-| Relations | Heuristic + verb extraction | Relation detection |
-| Graph DB | Neo4j 5.x | Knowledge graph storage |
-| Embeddings | sentence-transformers | Semantic node vectors |
-| Vector Search | FAISS | Similarity search |
-| LLM Reasoning | Groq (llama-3.3-70b) | Natural language answers |
-| Containerization | Docker | Neo4j deployment |
+| Feature | What it does |
+|---------|--------------|
+| Animated Knowledge Graph | Nodes build up one by one in a physics simulation — pause, rewind, speed up |
+| AI Query Engine | Ask anything in plain English, get multi-hop answers with a confidence score |
+| Live Document Ingestion | Upload a file and the graph updates on the spot |
+| Relations Table | Every extracted relationship in a clean, readable table |
+| Entity Explorer | All entities organized by type with their connection counts |
+| Document Manager | Upload, view, and delete ingested files |
+| NLP Pipeline | Transformer-based Named Entity Recognition via spaCy |
+| Vector Search | Node2Vec-style embeddings + FAISS for semantic similarity lookups |
 
 ---
 
-## Project Structure
+## Tech stack
+
+| Layer | Technology | Why it's here |
+|-------|-----------|---------------|
+| Frontend | React 18 + Vite | Fast, component-based UI |
+| Fonts / Theme | JetBrains Mono + Orbitron | Dark, terminal-style aesthetic |
+| Backend | FastAPI + Uvicorn | Clean REST API, very fast |
+| NLP | spaCy en_core_web_trf | Transformer-based entity recognition |
+| Relation Detection | Heuristic + verb extraction | Picks up how entities relate to each other |
+| Graph Database | Neo4j 5.x | Stores and queries the knowledge graph |
+| Embeddings | sentence-transformers | Converts nodes into semantic vectors |
+| Vector Search | FAISS | Fast nearest-neighbor lookups |
+| LLM Reasoning | Groq (llama-3.3-70b) | Generates grounded, explainable answers |
+| Containers | Docker | Runs Neo4j locally without the setup pain |
+
+---
+
+## Project structure
 
 ```
 GraphIQ/
 ├── api/
-│   ├── ingestor.py        # Document ingestion + NLP pipeline
-│   ├── main.py            # FastAPI backend + all endpoints
-│   └── test_pipeline.py   # Pipeline test suite
+│   ├── ingestor.py        # Document ingestion + the NLP pipeline
+│   ├── main.py            # FastAPI app + all endpoints
+│   └── test_pipeline.py   # Pipeline tests
 ├── data/
 │   ├── graphiq_synopsis.txt
 │   └── techvision_demo.txt
 ├── frontend/
 │   └── src/
-│       ├── App.jsx        # Full React UI
+│       ├── App.jsx        # The entire React UI
 │       └── main.jsx
 ├── notebooks/
-│   └── GraphIQ_Notebook.ipynb  # AML project notebook
+│   └── GraphIQ_Notebook.ipynb  # Course notebook
 ├── render.yaml            # Render deployment config
 └── requirements.txt       # Python dependencies
 ```
 
 ---
 
-## Getting Started
+## Getting it running locally
 
-### Prerequisites
+### What you need first
+
 - Python 3.11+
 - Node.js 18+
-- Docker Desktop
-- Groq API key (free at console.groq.com)
+- Docker Desktop (for Neo4j)
+- A Groq API key — free at [console.groq.com](https://console.groq.com)
 
-### 1. Clone the repository
+---
+
+### Step 1 — Clone the repo
+
 ```bash
 git clone https://github.com/manvithh06/GraphIQ.git
 cd GraphIQ
 ```
 
-### 2. Set up Python environment
+---
+
+### Step 2 — Set up the Python environment
+
 ```bash
 python -m venv venv
-venv\Scripts\activate        # Windows
-source venv/bin/activate     # macOS/Linux
+
+# Windows
+venv\Scripts\activate
+
+# macOS / Linux
+source venv/bin/activate
+
 pip install -r requirements.txt
 python -m spacy download en_core_web_trf
 ```
 
-### 3. Start Neo4j with Docker
+---
+
+### Step 3 — Start Neo4j with Docker
+
 ```bash
 docker run -d \
   --name neo4j-graphiq \
@@ -161,79 +209,89 @@ docker run -d \
   neo4j:5
 ```
 
-### 4. Configure environment variables
-Create `api/.env`:
-```
+---
+
+### Step 4 — Add your environment variables
+
+Create `api/.env` and paste this in:
+
+```env
 NEO4J_URI=bolt://localhost:7687
 NEO4J_USER=neo4j
 NEO4J_PASSWORD=password
 GROQ_API_KEY=your_groq_key_here
 ```
 
-### 5. Start the backend
+---
+
+### Step 5 — Start the backend
+
+> ⚠️ **Windows note:** If you're on a managed/corporate machine, `uvicorn.exe` might get blocked by Application Control policies. Use the `python -m` approach below — it runs through `python.exe` instead and bypasses the restriction entirely.
+
 ```bash
 cd api
+
+# Recommended — works everywhere
+python -m uvicorn main:app --reload
+
+# Only if your machine allows direct executables
 uvicorn main:app --reload
 ```
 
-### 6. Start the frontend
+---
+
+### Step 6 — Start the frontend
+
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
 
-### 7. Open the app
+---
+
+### Step 7 — Open the app
+
 ```
 http://localhost:5173
 ```
 
 ---
 
-## API Endpoints
+## API reference
 
-| Method | Endpoint | Description |
-|--------|---------|-------------|
-| GET | `/` | API info |
-| GET | `/health` | Check Neo4j + API status |
-| GET | `/graph` | Return full graph as JSON |
-| GET | `/sources` | List all ingested files |
-| POST | `/query` | AI reasoning over the graph |
-| POST | `/ingest` | Upload and ingest a document |
-| DELETE | `/delete` | Delete nodes by source file |
-
----
-
-## How It Works
-
-### 1. Document Ingestion
-```
-PDF/TXT → chunk_text() → 400-char overlapping chunks
-```
-
-### 2. Named Entity Recognition
-```
-spaCy en_core_web_trf → PERSON, ORG, GPE, DATE, MONEY entities
-```
-
-### 3. Relation Extraction
-```
-Sentence parsing → co-occurring entities → ROOT verb → (head, relation, tail)
-```
-
-### 4. Graph Storage
-```
-Neo4j MERGE → Entity nodes + typed relationship edges
-```
-
-### 5. AI Reasoning
-```
-User query → fetch Neo4j graph → build context → Groq LLM → explainable answer
-```
+| Method | Endpoint | What it does |
+|--------|----------|--------------|
+| GET | `/` | Basic API info |
+| GET | `/health` | Checks Neo4j + API status |
+| GET | `/graph` | Returns the full graph as JSON |
+| GET | `/sources` | Lists all ingested files |
+| POST | `/query` | Runs AI reasoning over the graph |
+| POST | `/ingest` | Uploads and processes a document |
+| DELETE | `/delete` | Removes all nodes tied to a source file |
 
 ---
 
-## Sample Queries
+## How it actually works — step by step
+
+**1. Ingestion**
+Your file comes in as a PDF, TXT, CSV, or MD. It gets split into 400-character overlapping chunks so nothing gets cut off at a boundary.
+
+**2. Entity Recognition**
+spaCy's transformer model reads each chunk and pulls out named entities — people, organizations, locations, dates, financial values.
+
+**3. Relation Extraction**
+The system looks at sentences where two or more entities appear together, finds the root verb connecting them, and extracts a `(subject, relation, object)` triple.
+
+**4. Graph Storage**
+Everything gets stored in Neo4j using `MERGE` — so if the same entity shows up across multiple documents, it connects to the same node rather than creating duplicates.
+
+**5. Answering Questions**
+When you ask something, the system fetches the relevant part of the graph, builds a context window, and sends it to Groq's Llama model. You get back a grounded, reasoned answer — not a guess.
+
+---
+
+## Things worth asking it
 
 ```
 Who manages the Engineering Department?
@@ -246,11 +304,13 @@ Which person has the most connections?
 
 ---
 
-## Course Details
+## Course context
 
-- **Course**: Advanced Machine Learning (AM2001-1)
-- **Institution**: NMAM Institute of Technology
-- **Project**: Mini Project — GraphIQ: AI-Powered Relational Intelligence System
+| | |
+|--|--|
+| Course | Advanced Machine Learning (AM2001-1) |
+| Institution | NMAM Institute of Technology |
+| Project | Mini Project — GraphIQ: AI-Powered Relational Intelligence System |
 
 ---
 
@@ -259,8 +319,8 @@ Which person has the most connections?
 - T. Mitchell, *Machine Learning*. McGraw-Hill, 1997.
 - I. Goodfellow, Y. Bengio, A. Courville, *Deep Learning*. MIT Press, 2016.
 - A. Hogan et al., "Knowledge Graphs," *ACM Computing Surveys*, vol. 54, no. 4, 2021.
-- Neo4j Documentation — https://neo4j.com/docs/
-- spaCy Documentation — https://spacy.io/
+- [Neo4j Documentation](https://neo4j.com/docs/)
+- [spaCy Documentation](https://spacy.io/)
 
 ---
 
