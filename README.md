@@ -218,7 +218,7 @@ Create `api/.env` and paste this in:
 ```env
 NEO4J_URI=bolt://localhost:7687
 NEO4J_USER=neo4j
-NEO4J_PASSWORD=password
+NEO4J_PASSWORD=neo4j_password
 GROQ_API_KEY=your_groq_key_here
 ```
 
