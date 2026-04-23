@@ -9,3 +9,4 @@ langchain>=0.2
 anthropic>=0.28
 fastapi>=0.111
 uvicorn>=0.30
+python-dotenv==1.0.1
