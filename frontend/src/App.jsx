@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 
-const API = "https://graphiq-0sd7.onrender.com";
+const API = "https://graphiq-api.onrender.com";
 
 const TYPE_META = {
   person:       { color: "#a78bfa", glyph: "PE" },
