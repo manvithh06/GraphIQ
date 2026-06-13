@@ -1,0 +1,29 @@
+TechVision Inc is a software company based in Austin.
+Rahul Sharma is the CEO of TechVision Inc.
+Priya Nair is the CTO of TechVision Inc.
+Arjun Mehta is the CFO of TechVision Inc.
+Priya Nair manages the Engineering Team at TechVision Inc.
+Arjun Mehta manages the Finance Team at TechVision Inc.
+
+TechVision Inc partnered with CloudNova Ltd in January 2025.
+CloudNova Ltd supplies cloud servers to TechVision Inc.
+TechVision Inc signed a contract with PaySafe Corp in February 2025.
+PaySafe Corp provides payment services to TechVision Inc.
+
+Priya Nair developed a product called VisionAI in 2024.
+VisionAI automates data analysis for enterprise clients.
+Rahul Sharma approved VisionAI and presented it to the Board.
+Arjun Mehta allocated 1 million dollars to fund VisionAI.
+
+A data breach occurred at TechVision Inc in March 2025.
+The data breach affected the client database.
+Priya Nair detected the data breach and reported it to Rahul Sharma.
+Rahul Sharma hired SecureNet LLC to resolve the data breach.
+SecureNet LLC is a cybersecurity firm based in Dallas.
+SecureNet LLC fixed the data breach by April 2025.
+
+TechVision Inc acquired DataEdge startup in May 2025.
+DataEdge specializes in real-time analytics.
+Rahul Sharma announced the DataEdge acquisition to the Board.
+Arjun Mehta approved 2 million dollars for the DataEdge acquisition.
+Priya Nair integrated DataEdge technology into VisionAI.

@@ -1,0 +1,11 @@
+spacy>=3.7
+transformers>=4.40
+torch>=2.2
+neo4j>=5.18
+sentence-transformers>=2.7
+faiss-cpu>=1.8
+pdfplumber>=0.11
+langchain>=0.2
+anthropic>=0.28
+fastapi>=0.111
+uvicorn>=0.30
