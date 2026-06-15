@@ -112,7 +112,7 @@ def load_document(filepath: str) -> list[dict]:
 
 import spacy
 
-nlp = spacy.load("en_core_web_trf")
+nlp = spacy.load("en_core_web_sm")
 
 ENTITY_TYPE_MAP = {
     "PERSON": "person",
